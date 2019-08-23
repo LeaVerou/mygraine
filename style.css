@@ -1,0 +1,71 @@
+:root {
+	--gray: 220, 10%;
+}
+
+body {
+	xdisplay: flex;
+	margin: 0;
+	font-family: Helvetica Neue, Segoe UI, sans-serif;
+}
+
+main {
+	flex: 1;
+}
+
+aside {
+	flex: 1;
+}
+
+main {
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+
+body > header {
+	xdisplay: flex;
+	grid-column-end: span 2;
+	padding: .5em 1em;
+	margin-bottom: 1em;
+	background: #d00;
+	color: white;
+	text-align: center;
+}
+
+	body > header h1 {
+		margin: 0;
+		font-weight: 300;
+		font-size: 400%;
+	}
+
+	body > header h2 {
+		margin: 0 0 1em;
+	}
+
+	.days-since {
+		margin-left: auto;
+		opacity: .5;
+		font-style: italic;
+		font-size: 70%;
+	}
+
+aside {
+	padding: .5em;
+}
+
+	aside > h2 {
+		margin: 0;
+	}
+
+[property="migraine"] {
+	margin: .5em;
+	padding: .5em;
+	background: hsl(var(--gray), 95%);
+}
+
+	[property="migraine"] header {
+		display: flex;
+	}
+
+	[property="migraine"] time {
+		font-weight: bold;
+	}

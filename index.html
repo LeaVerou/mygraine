@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tracker</title>
+	<link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body mv-app="tracker" mv-source="data.json" mv-bar="with export">
+<header>
+	<h1>mygraine</h1>
+	<h2>Migraine tracker</h2>
+	<div class="mv-bar mv-ui"></div>
+</header>
+<main>
+
+	<div class="migraines">
+		<article property="migraine" mv-multiple mv-order="desc">
+			<header>
+				<time property="date"></time>
+				<meta property="timeElapsed" content="[date - $next.date]">
+				<span class="days-since">
+					<span mv-if="timeElapsed"><strong>[duration(timeElapsed)]</strong> since </span>
+					<span mv-if="timeElapsed = 0"><strong>Same day</strong> as </span>
+					last migraine
+				</span>
+			</header>
+			<div property="notes"></div>
+		</article>
+	</div>
+
+	<aside>
+		<h2>[name] Statistics</h2>
+
+		<dl>
+			<dt>Average interval:</dt>
+			<dd>[duration(average(timeElapsed))]</dd>
+
+			<dt>Max time between migraines:</dt>
+			<dd>[days(max(timeElapsed))] days</dd>
+
+			<dt>Occurrences per month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
+			<dd>
+				<div mv-multiple="migraineByMonth" mv-group mv-value="migraine by year(date) & '-' & month(date, '00')">
+					<strong property="monthlyCount">[count($items)]</strong> in [month($value, "name")] [year($value)]
+				</div>
+			</dd>
+		</dl>
+
+	</aside>
+</main>
+<!-- <aside>
+	<div mv-value="occurrence where month(date) = month($today) " mv-multiple mv-group>
+		[weekday(date)] [day(date)]
+	</div>
+</aside> -->
+
+<script src="https://dev.mavo.io/dist/mavo.js"></script>
+
+</body>
+</html>
