@@ -22,23 +22,55 @@ main {
 }
 
 body > header {
-	xdisplay: flex;
+	display: grid;
+	grid-template-columns: auto auto 1fr auto;
+	grid-template-areas: "h1 h2 . mv-bar";
+	align-items: center;
 	grid-column-end: span 2;
 	padding: .5em 1em;
 	margin-bottom: 1em;
-	background: #d00;
+	background: linear-gradient(to bottom right, hsl(20, 100%, 40%), hsl(0, 100%, 40%)) #c00;
 	color: white;
 	text-align: center;
+}
+
+@media (max-width: 600px) {
+	body > header {
+		grid-template-areas: "h1 h2 ."
+		                     "mv-bar mv-bar mv-bar";
+		grid-template-columns: auto auto 1fr;
+		grid-template-rows: auto auto;
+	}
 }
 
 	body > header h1 {
 		margin: 0;
 		font-weight: 300;
 		font-size: 400%;
+		line-height: 1;
+		margin-bottom: .2em;
+		white-space: nowrap;
 	}
 
+		body > header h1::before {
+			content: "🤕";
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: .2em;
+			font-size: 80%;
+		}
+
 	body > header h2 {
-		margin: 0 0 1em;
+		margin: 0 0 0 .4em;
+		max-width: 5em;
+		text-align: left;
+		opacity: .5;
+		line-height: .9;
+	}
+
+	body > header .mv-bar.mv-bar.mv-ui {
+		grid-area: mv-bar;
+		margin: 0;
 	}
 
 	.days-since {
