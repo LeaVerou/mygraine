@@ -3,9 +3,9 @@
 }
 
 body {
-	xdisplay: flex;
 	margin: 0;
 	font-family: Helvetica Neue, Segoe UI, sans-serif;
+	--gradient: linear-gradient(to bottom right, hsl(20, 100%, 40%), hsl(0, 100%, 40%))
 }
 
 main {
@@ -29,7 +29,7 @@ body > header {
 	grid-column-end: span 2;
 	padding: .5em 1em;
 	margin-bottom: 1em;
-	background: linear-gradient(to bottom right, hsl(20, 100%, 40%), hsl(0, 100%, 40%)) #c00;
+	background: var(--gradient) #c00;
 	color: white;
 	text-align: center;
 }
@@ -105,7 +105,7 @@ aside {
 		padding: .5em;
 	}
 
-	[property="migraine"] time {
+	[property="date"] {
 		font-weight: bold;
 	}
 
@@ -121,7 +121,7 @@ aside {
 meter {
 	display: inline-block;
 	vertical-align: baseline;
-	width: 4.8em;
+	width: 6em;
 	height: 1.2em;
 	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white" fill-opacity=".3">\
 		<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
@@ -144,10 +144,89 @@ meter {
 		content: "at ";
 	}
 
+	.end-time {
+		margin-left: .4em;
+	}
+
 [property="duration"] {
 	margin-left: .4em;
 }
 
+	[property="duration"]:not(:empty)::before {
+		content: "(";
+	}
+
 	[property="duration"]:not(:empty)::after {
-		content: " hours";
+		content: " hours)";
+	}
+
+dl.stats {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+	dl.stats dt,
+	dl.stats dd {
+		padding: .2em .3em;
+		border: 1px solid rgba(0,0,0,.1);
+	}
+
+	dl.stats dt {
+		grid-column: 1;
+		background: hsl(var(--color, var(--gray)), 95%);
+	}
+
+	dl.stats dd {
+		grid-column: 2;
+		margin: 0;
+	}
+
+	dl.stats dt.large,
+	dl.stats dt.large + dd {
+		grid-column: 1;
+		grid-column-end: span 2;
+	}
+
+	dl.stats dt.large {
+		margin-top: .5em;
+	}
+
+	dl.stats dt.large + dd {
+		padding: .8em;
+	}
+
+	dl.stats dt:not(.large) + dd {
+		font-weight: bold;
+	}
+
+[property="migraineByMonth"],
+.migraines-by-intensity > div {
+	display: grid;
+	grid-gap: .3em;
+	margin: .3em 0;
+}
+
+[property="migraineByMonth"] {
+	text-align: right;
+	grid-template-columns: 8em 1fr 10em;
+}
+
+.migraines-by-intensity > div {
+	grid-template-columns: auto auto 1fr auto;
+}
+
+	[property="monthlyCount"] {
+		grid-column: 3;
+		width: calc(100% * var(--width));
+		padding: .1em .3em;
+		box-sizing: border-box;
+		background: var(--gradient);
+		color: white;
+		font-size: 80%;
+		font-weight: bold;
+		text-align: left;
+	}
+
+	.migraines-by-intensity meter {
+		grid-column: 4;
 	}
