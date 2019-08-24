@@ -13,11 +13,13 @@
 	<div class="mv-bar mv-ui"></div>
 </header>
 <main>
-
 	<div class="migraines">
-		<article property="migraine" mv-multiple mv-order="desc">
+		<article property="migraine" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
 				<time property="date"></time>
+				<time property="startTime" mv-edit-type="time" mv-edit-value="[hour($startup)]:[minute($startup)]">[hour(startTime)]:[minute(startTime)]</time>
+				<span property="duration" mv-edit-type="number" mv-edit-min="1"></span>
+				<meter property="intensity" min="0" max="4" title='[get(list("Very mild", "Mild", "Medium", "Strong", "Very strong"), intensity)]'></meter>
 				<meta property="timeElapsed" content="[date - $next.date]">
 				<span class="days-since">
 					<span mv-if="timeElapsed"><strong>[duration(timeElapsed)]</strong> since </span>
