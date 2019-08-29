@@ -169,6 +169,9 @@ dl.stats {
 	dl.stats dd {
 		padding: .2em .3em;
 		border: 1px solid rgba(0,0,0,.1);
+		border-bottom: 0;
+		border-right: 0;
+		box-shadow: 0 1px rgba(0,0,0,.1), 1px 0 rgba(0,0,0,.1);
 	}
 
 	dl.stats dt {

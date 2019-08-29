@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
 	<link rel="stylesheet" href="style.css">
 </head>
-<body mv-app="tracker" mv-source="data.json" mv-bar="with export">
+<body mv-app="tracker" mv-storage="data.json" mv-bar="with export">
 <header>
 	<h1>mygraine</h1>
 	<h2>migraine tracker</h2>
@@ -36,8 +36,6 @@
 	</div>
 
 	<aside>
-		<h2>Statistics</h2>
-
 		<dl class="stats">
 			<dt>Migraines recorded:</dt>
 			<dd property="totalMigraines">[count(migraine)]</dd>
