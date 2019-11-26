@@ -26,7 +26,7 @@
 		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
 				<span property="weekday">[weekday(date, "shortname")]</span>
-				<time property="date" mv-default="$today"></time>
+				<time property="date" datetime="$today"></time>
 				<time property="startTime" mv-edit-type="time" mv-edit-value="[hour($startup)]:00">[hour($startup)]:00</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span mv-if="startTime and duration" class="end-time">to [time(startTime + duration * hours(), 'minutes')]</span>
