@@ -13,11 +13,21 @@
 	<div class="mv-bar mv-ui"></div>
 </header>
 <main>
+	<meta property="minNumeric" mv-value="min(startNumeric)" />
+	<meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" />
 	<div class="migraines">
-		<article property="migraine" mv-multiple mv-order="desc" style="--intensity:[intensity];">
+		<div class="visualization">
+			<a href="#migraine-[migraineSpan.date]-[migraineSpan.startTime]" property="migraineSpan" mv-value="migraine" mv-multiple mv-group
+			style="--start: [startRelative]; --duration: [100 * (if(duration, duration, averageDuration) * 3600 * 1000) / spanNumeric]; --intensity:[intensity];"
+			title="[weekday], [date]">
+				<meta property="startRelative" content="[100 * (startNumeric - minNumeric) / spanNumeric]">
+			</a>
+		</div>
+		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
-				<time property="date"></time>
-				<time property="startTime" mv-edit-type="time" mv-edit-value="[time($startup, 'minutes')]">[time(startTime, 'minutes')]</time>
+				<span property="weekday">[weekday(date, "shortname")]</span>
+				<time property="date" mv-default="$today"></time>
+				<time property="startTime" mv-edit-type="time" mv-edit-value="[hour($startup)]:00">[hour($startup)]:00</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span mv-if="startTime and duration" class="end-time">to [time(startTime + duration * hours(), 'minutes')]</span>
 
@@ -25,6 +35,7 @@
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
 
 				<meta property="timeElapsed" content="[date - $next.date]">
+				<meta property="startNumeric" content="[date + (hour(startTime) * 3600 + minute(startTime) * 60) * 1000]">
 				<span class="days-since">
 					<span mv-if="timeElapsed"><strong>[duration(timeElapsed)]</strong> since </span>
 					<span mv-if="timeElapsed = 0"><strong>Same day</strong> as </span>
@@ -47,7 +58,7 @@
 			<dd>[days(max(timeElapsed))] days</dd>
 
 			<dt>Average duration</dt>
-			<dd>[average(duration)] hours</dd>
+			<dd><span property="averageDuration">[average(duration)]</span> hours</dd>
 
 			<dt class="large">Migraines by month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
 			<dd>
