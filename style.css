@@ -8,10 +8,7 @@ body {
 	--gradient: linear-gradient(to bottom right, hsl(20, 100%, 40%), hsl(0, 100%, 40%))
 }
 
-main {
-	flex: 1;
-}
-
+main,
 aside {
 	flex: 1;
 }
@@ -19,6 +16,12 @@ aside {
 main {
 	display: grid;
 	grid-template-columns: 1fr auto;
+}
+
+@media (max-width: 900px) {
+	main {
+		grid-template-columns: 1fr;
+	}
 }
 
 body > header {
@@ -251,6 +254,7 @@ dl.stats {
 	right: 0;
 	height: 1em;
 	background: hsl(var(--gray), 90%);
+	transform-origin: 0 0;
 }
 
 	.visualization > a {
@@ -259,7 +263,7 @@ dl.stats {
 		left: calc(var(--start) * 1%);
 		z-index: var(--intensity);
 		width: calc(var(--duration) * 1%);
-		min-width: 1px;
+		xmin-width: 1px;
 		background: pink;
 
 		--hue: calc(30 * (1 - var(--intensity) * .25));
