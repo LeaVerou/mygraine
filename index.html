@@ -16,18 +16,18 @@
 	<meta property="minNumeric" mv-value="min(startNumeric)" />
 	<meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" />
 	<div class="migraines">
-		<div class="visualization">
+		<!-- <div class="visualization">
 			<a href="#migraine-[migraineSpan.date]-[migraineSpan.startTime]" property="migraineSpan" mv-value="migraine" mv-multiple mv-group
 			style="--start: [startRelative]; --duration: [100 * (if(duration, duration, averageDuration) * 3600 * 1000) / spanNumeric]; --intensity:[intensity];"
 			title="[weekday], [date]">
 				<meta property="startRelative" content="[100 * (startNumeric - minNumeric) / spanNumeric]">
 			</a>
-		</div>
+		</div> -->
 		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
 				<span property="weekday">[weekday(date, "shortname")]</span>
 				<time property="date" datetime="$today"></time>
-				<time property="startTime" mv-edit-type="time" mv-edit-value="[hour($startup)]:00">[hour(startTime)]:00</time>
+				<time property="startTime" mv-edit-type="time" mv-edit-value="[hour($startup)]:00">[hour(startTime)]:[minute(startTime)]</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span mv-if="startTime and duration" class="end-time">to [time(startTime + duration * hours(), 'minutes')]</span>
 
@@ -46,7 +46,7 @@
 		</article>
 	</div>
 
-	<aside>
+	<aside id="stats">
 		<dl class="stats">
 			<dt>Migraines recorded:</dt>
 			<dd property="totalMigraines">[count(migraine)]</dd>
