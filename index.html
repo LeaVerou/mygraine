@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="home">
 <head>
 	<meta charset="UTF-8">
 	<title>mygraine - Migraine tracker</title>
 	<link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="home.css">
 </head>
 <body mv-app="migraines" mv-storage="https://github.com/leaverou/mygraine/data.json" mv-bar="with export">
 <header>
 	<h1>mygraine</h1>
 	<h2>migraine tracker</h2>
-	<div class="mv-bar mv-ui"></div>
+	<div class="mv-bar mv-ui">
+		<a href="stats.html[location.search]" class="mv-button stats">Stats</a>
+	</div>
 </header>
 <main>
 	<meta property="minNumeric" mv-value="min(startNumeric)" />
 	<meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" />
 	<div class="migraines">
-		<!-- <div class="visualization">
-			<a href="#migraine-[migraineSpan.date]-[migraineSpan.startTime]" property="migraineSpan" mv-value="migraine" mv-multiple mv-group
-			style="--start: [startRelative]; --duration: [100 * (if(duration, duration, averageDuration) * 3600 * 1000) / spanNumeric]; --intensity:[intensity];"
-			title="[weekday], [date]">
-				<meta property="startRelative" content="[100 * (startNumeric - minNumeric) / spanNumeric]">
-			</a>
-		</div> -->
+		<!-- <div class="since">[duration(first(date) - $today)] since last migraine!</div> -->
 		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
 				<span property="weekday">[weekday(date, "shortname")]</span>
@@ -45,50 +42,6 @@
 			<div property="notes"></div>
 		</article>
 	</div>
-
-	<aside id="stats">
-		<dl class="stats">
-			<dt>Migraines recorded:</dt>
-			<dd property="totalMigraines">[count(migraine)]</dd>
-
-			<dt>Average interval:</dt>
-			<dd>[duration(average(timeElapsed))]</dd>
-
-			<dt>Max time between migraines:</dt>
-			<dd>[days(max(timeElapsed))] days</dd>
-
-			<dt>Average duration</dt>
-			<dd><span property="averageDuration">[average(duration)]</span> hours</dd>
-
-			<dt class="large">Migraines by month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
-			<dd>
-				<div mv-multiple="migraineByMonth" mv-group mv-value="migraine by year(date) & '-' & month(date, '00')">
-					[month($value, "name")] [year($value)]
-					<strong property="monthlyCount" style="--width: [monthlyCount / max(monthlyCount.$all)]">[count($items)]</strong>
-				</div>
-			</dd>
-
-			<dt class="large">Migraines by intensity (avg: <meter min="0" max="5" value="[average(migraine.intensity)]" title="[average(migraine.intensity)]"></meter>)</dt>
-			<dd class="migraines-by-intensity">
-				<div><strong>[count(!migraine.intensity)]</strong> had no recorded intensity</div>
-				<div mv-multiple="migraineByIntensity" mv-value="1 .. 5" mv-attribute="content">
-					<strong property="intensityCount">[count(migraine.intensity = migraineByIntensity)]</strong> ([100 * intensityCount / totalMigraines]%)
-					were [intensityName(migraineByIntensity)] <meter min="0" max="5" value="[migraineByIntensity]" title="[migraineByIntensity]"></meter>
-				</div>
-			</dd>
-
-			<dt class="large">Migraines by time of day</dt>
-			<dd>
-				<div><strong>[count(!migraine.timeOfDay)]</strong> had no recorded start time</div>
-				<div mv-multiple="migraineByTimeofday" mv-value="1 .. 4" mv-attribute="content">
-
-					<strong property="todCount">[count(migraine.timeOfDay = migraineByTimeofday)]</strong> ([100 * todCount / totalMigraines]%)
-					were in the [get(list("Early morning", "Morning", "Afternoon", "Evening"), migraineByTimeofday - 1)]
-				</div>
-			</dd>
-		</dl>
-
-	</aside>
 </main>
 <!-- <aside>
 	<div mv-value="occurrence where month(date) = month($today) " mv-multiple mv-group>

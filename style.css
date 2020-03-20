@@ -46,6 +46,12 @@ body > header {
 	}
 }
 
+	body > header > a {
+		display: contents;
+		color: inherit;
+		text-decoration: none;
+	}
+
 	body > header h1 {
 		margin: 0;
 		font-weight: 300;
@@ -171,101 +177,4 @@ meter {
 
 	[property="duration"]:not(:empty)::after {
 		content: " hours)";
-	}
-
-dl.stats {
-	display: grid;
-	grid-template-columns: auto 1fr;
-}
-
-	dl.stats dt,
-	dl.stats dd {
-		padding: .2em .3em;
-		border: 1px solid rgba(0,0,0,.1);
-		border-bottom: 0;
-		border-right: 0;
-		box-shadow: 0 1px rgba(0,0,0,.1), 1px 0 rgba(0,0,0,.1);
-	}
-
-	dl.stats dt {
-		grid-column: 1;
-		background: hsl(var(--color, var(--gray)), 95%);
-	}
-
-	dl.stats dd {
-		grid-column: 2;
-		margin: 0;
-	}
-
-	dl.stats dt.large,
-	dl.stats dt.large + dd {
-		grid-column: 1;
-		grid-column-end: span 2;
-	}
-
-	dl.stats dt.large {
-		margin-top: .5em;
-	}
-
-	dl.stats dt.large + dd {
-		padding: .8em;
-	}
-
-	dl.stats dt:not(.large) + dd {
-		font-weight: bold;
-	}
-
-[property="migraineByMonth"],
-.migraines-by-intensity > div {
-	display: grid;
-	grid-gap: .3em;
-	margin: .3em 0;
-}
-
-[property="migraineByMonth"] {
-	text-align: right;
-	grid-template-columns: 8em 1fr 10em;
-}
-
-.migraines-by-intensity > div {
-	grid-template-columns: auto auto 1fr auto;
-}
-
-	[property="monthlyCount"] {
-		grid-column: 3;
-		width: calc(100% * var(--width));
-		padding: .1em .3em;
-		box-sizing: border-box;
-		background: var(--gradient);
-		color: white;
-		font-size: 80%;
-		font-weight: bold;
-		text-align: left;
-	}
-
-	.migraines-by-intensity meter {
-		grid-column: 4;
-	}
-
-.visualization {
-	position: absolute;
-	top: 6em;
-	left: 0;
-	right: 0;
-	height: 1em;
-	background: hsl(var(--gray), 90%);
-	transform-origin: 0 0;
-}
-
-	.visualization > a {
-		position: absolute;
-		top: 0; bottom: 0;
-		left: calc(var(--start) * 1%);
-		z-index: var(--intensity);
-		width: calc(var(--duration) * 1%);
-		xmin-width: 1px;
-		background: pink;
-
-		--hue: calc(30 * (1 - var(--intensity) * .25));
-		background: hsl(var(--hue, 30), 100%, 60%);
 	}

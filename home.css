@@ -1,0 +1,8 @@
+.mv-bar.mv-ui > .mv-button.stats {
+	order: 1;
+}
+
+	.mv-bar.mv-ui > .mv-button.stats::before {
+		content: "📊";
+		vertical-align: 0;
+	}
