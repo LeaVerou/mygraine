@@ -7,7 +7,8 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="stats.css">
 </head>
-<body mv-app="migraines" mv-storage="https://github.com/leaverou/mygraine/data.json" mv-bar="with export">
+<body mv-app="migraines" mv-storage="https://github.com/leaverou/mygraine/data.json" mv-bar="with export"
+style="--average-duration: [averageDuration]">
 <header>
 	<a href="index.html[location.search]">
 		<h1>mygraine</h1>
@@ -19,24 +20,38 @@
 	<meta property="minNumeric" mv-value="min(startNumeric)" />
 	<meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" />
 	<div class="migraines">
-		<h3>Migraines in the last 30 days</h3>
-		<div class="recent-migraines">
+		<h3>Migraines in the last
+			<select property="recentDays">
+				<option value="29">30 days</option>
+				<option value="[day($startup) - 1]">month</option>
+				<option value="89">90 days</option>
+				<option value="364">year</option>
+			</select>
+			<label>
+				<input type="checkbox" property="byDuration">
+				Color by duration
+			</label>
+		</h3>
+		<div class="recent-migraines [if(byDuration, 'by-duration')]">
 			<!-- <a href="index.html" property="recentMigraine" mv-value="migraine where date < $today - 30*days()" mv-multiple
 				style="--weekday: [weekday(date)]; --intensity:[intensity];"
 			>
 				[month(date, "shortname")]
 				[day(date)]
 			</a> -->
-			<a  mv-multiple property="recentDay" mv-attribute="none"
-				mv-value="0 .. 30"
-				class="[if(hasMigraine, 'migraine')]"
-				style="--weekday: [weekday(date)]; --intensity:[if(hasMigraine, hasMigraine.intensity, 'initial')];"
+			<div mv-multiple property="recentDayHeader" mv-value="0 .. 6" mv-attribute="data-value">[weekday($startup - recentDayHeader * days(), "shortname")]</div>
+			<a href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime)]"
+				mv-multiple property="recentDay" mv-attribute="none"
+				mv-value="0 .. recentDays"
+				class="[if(hasMigraine, 'migraine')] [if(duration > 0, 'has-duration')]"
+				style="--intensity:[if(hasMigraine, hasMigraine.intensity, 'initial')]; --duration: [duration]; --start: [hour(startTime)]"
+				title="[if(hasMigraine, startTime & if(duration, ' ' & endTime & ' (' & duration & ' hours)'))]"
 				>
 				<meta property="date" content="[if(recentDay > 0, $today - recentDay * days(), $today)]">
-				<!-- href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime"
-
-				 -->
 				<meta property="hasMigraine" content="[first(filter(migraine, migraine.date = date(date)))]">
+				<meta property="startTime" content="[if(hasMigraine, hasMigraine.startTime, 0)]">
+				<meta property="duration" content="[if(hasMigraine, hasMigraine.duration, 0)]">
+				<meta property="endTime" content="[if(hasMigraine, hasMigraine.endTime, 0)]">
 				[month(date, "shortname")]
 				[day(date)]
 			</a>
@@ -48,7 +63,7 @@
 				<time property="date" mv-default="[$today]"></time>
 				<time property="startTime" mv-edit-type="time" mv-edit-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
-				<span mv-if="startTime and duration" class="end-time">to [time(startTime + duration * hours(), 'minutes')]</span>
+				<span mv-if="startTime and duration" class="end-time" property="endTime">to [time(startTime + duration * hours(), 'minutes')]</span>
 
 				<span property="duration" mv-edit-type="number" mv-edit-min="1"></span>
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>

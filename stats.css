@@ -4,19 +4,40 @@
 	grid-gap: .2em;
 }
 
+	.recent-migraines > div {
+		color: hsl(var(--gray), 50%);
+		font-weight: bold;
+		text-align: center;
+	}
+
 	.recent-migraines > a {
-		xgrid-column: var(--weekday, auto);
-		--hue: calc(30 * (1 - var(--intensity, 0) * .25));
-		--lightness: calc(90% - var(--intensity, 0) * 10%);
-		--color: var(--hue), 100%;
-		background: hsl(var(--color), var(--lightness));
+		border-radius: .2em;
+		--hue: calc(30 - 6 * var(--intensity));
+		--lightness: calc(70% - var(--intensity) * 10%);
+		--color: hsl(var(--hue), 100%, var(--lightness));
+		--no-intensity: linear-gradient(to right, hsl(12, 100%, 40%), hsl(30, 100%, 70%));
+		background: var(--color, var(--no-intensity));
 		color: white;
 		font-weight: bold;
 		padding: .3em .5em;
+		text-decoration: none;
 	}
 
 	.recent-migraines > a:not(.migraine) {
-		background: hsl(var(--gray), 60%);
+		background: hsl(var(--gray), 70%);
+		cursor: not-allowed;
+	}
+
+	.recent-migraines.by-duration > a.has-duration {
+		--gradient: linear-gradient(to right, var(--color) calc(100% * var(--duration) / 24), hsl(var(--gray), 70%) 0);
+		background: var(--gradient);
+	}
+
+	.recent-migraines.by-duration > a.migraine:not(.has-duration) {
+		--stripe: .5em;
+		--percent: calc(var(--average-duration) / 24);
+		--gradient: repeating-linear-gradient(-45deg, var(--color, hsl(21, 100%, 55%)) 0 calc(var(--stripe) * var(--percent)), hsl(var(--gray), 70%) 0 var(--stripe));
+		background: var(--gradient);
 	}
 
 dl.stats {
