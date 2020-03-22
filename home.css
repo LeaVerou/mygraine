@@ -6,3 +6,87 @@
 		content: "📊";
 		vertical-align: 0;
 	}
+
+
+[property="migraine"] {
+	margin: .5em;
+	--hue: calc(30 * (1 - var(--intensity) * .25));
+	--color: var(--hue), 100%;
+	background: hsl(var(--color, var(--gray)), 90%);
+	border-radius: 4px;
+}
+
+[property="migraine"]:target {
+	box-shadow: 0 0 .5em skyblue;
+}
+
+[property="migraine"].intensity-0 {
+	background: hsl(20, 100%, 90%);
+}
+
+	[property="migraine"] header {
+		display: flex;
+		flex-wrap: wrap;
+		padding: .5em;
+	}
+
+	[property="date"] {
+		font-weight: bold;
+	}
+
+	[property="weekday"] {
+		min-width: 2em;
+		text-align: right;
+		margin-right: .6ch;
+	}
+
+	[property="notes"] {
+		padding: .5em;
+		background: hsla(0,0%,100%,.4);
+	}
+
+[property="intensity"] {
+	margin-left: .4em;
+}
+
+meter {
+	display: inline-block;
+	vertical-align: baseline;
+	width: 6em;
+	height: 1.2em;
+	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white" fill-opacity=".3">\
+		<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
+}
+
+	meter::-webkit-meter-bar {
+		background: transparent;
+	}
+
+	meter::-webkit-meter-optimum-value {
+		background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">\
+			<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
+	}
+
+[property="startTime"] {
+	margin-left: .4em;
+}
+
+	[property="startTime"]:not(:empty)::before {
+		content: "at ";
+	}
+
+	.end-time {
+		margin-left: .4em;
+	}
+
+[property="duration"] {
+	margin-left: .4em;
+}
+
+	[property="duration"]:not(:empty)::before {
+		content: "(";
+	}
+
+	[property="duration"]:not(:empty)::after {
+		content: " hours)";
+	}

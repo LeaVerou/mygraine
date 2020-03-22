@@ -1,3 +1,15 @@
+
+main {
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+
+@media (max-width: 900px) {
+	main {
+		grid-template-columns: 1fr;
+	}
+}
+
 .recent-migraines {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
