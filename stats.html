@@ -29,6 +29,8 @@ style="--average-duration: [averageDuration]">
 				<option value="89">90 days</option>
 				<option value="364">year</option>
 			</select>
+			starting
+			<input type="date" value="[$today]" property="startDate">
 			<label>
 				<input type="checkbox" property="byDuration">
 				Color by duration
@@ -41,7 +43,7 @@ style="--average-duration: [averageDuration]">
 				[month(date, "shortname")]
 				[day(date)]
 			</a> -->
-			<div mv-multiple property="recentDayHeader" mv-value="0 .. 6" mv-attribute="data-value">[weekday($startup - recentDayHeader * days(), "shortname")]</div>
+			<div mv-multiple property="recentDayHeader" mv-value="0 .. 6" mv-attribute="data-value">[weekday(startDate + 0 - recentDayHeader * days(), "shortname")]</div>
 			<a href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime)]"
 				mv-multiple property="recentDay" mv-attribute="none"
 				mv-value="0 .. recentDays"
@@ -49,7 +51,7 @@ style="--average-duration: [averageDuration]">
 				style="--intensity:[if(hasMigraine, hasMigraine.intensity, 'initial')]; --duration: [duration]; --start: [hour(startTime)]"
 				title="[if(hasMigraine, startTime & if(duration, ' ' & endTime & ' (' & duration & ' hours)'))]"
 				>
-				<meta property="date" content="[if(recentDay > 0, $today - recentDay * days(), $today)]">
+				<meta property="date" content="[if(recentDay > 0, startDate + 0 - recentDay * days(), startDate)]">
 				<meta property="hasMigraine" content="[first(filter(migraine, migraine.date = date(date)))]">
 				<meta property="startTime" content="[if(hasMigraine, hasMigraine.startTime, 0)]">
 				<meta property="duration" content="[if(hasMigraine, hasMigraine.duration, 0)]">
@@ -90,6 +92,9 @@ style="--average-duration: [averageDuration]">
 
 			<dt>Average duration</dt>
 			<dd><span property="averageDuration">[average(duration)]</span> hours</dd>
+
+			<dt>Predicted migraines this month</dt>
+			<dd>[round(first(monthlyCount) / (day($today)/30))]</dd>
 
 			<dt class="large">Migraines by month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
 			<dd>

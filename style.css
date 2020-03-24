@@ -85,3 +85,21 @@ aside {
 	aside > h2 {
 		margin: 0;
 	}
+
+meter {
+	display: inline-block;
+	vertical-align: baseline;
+	width: 6em;
+	height: 1.2em;
+	background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white" fill-opacity=".3">\
+		<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
+}
+
+	meter::-webkit-meter-bar {
+		background: transparent;
+	}
+
+	meter::-webkit-meter-optimum-value {
+		background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">\
+			<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
+	}
