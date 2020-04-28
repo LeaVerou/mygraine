@@ -43,16 +43,30 @@ style="--average-duration: [averageDuration]">
 				[month(date, "shortname")]
 				[day(date)]
 			</a> -->
-			<div mv-multiple property="recentDayHeader" mv-value="0 .. 6" mv-attribute="data-value">[weekday(startDate + 0 - recentDayHeader * days(), "shortname")]</div>
+			<div class="header">Mon</div>
+			<div class="header">Tue</div>
+			<div class="header">Wed</div>
+			<div class="header">Thu</div>
+			<div class="header">Fri</div>
+			<div class="header">Sat</div>
+			<div class="header">Sun</div>
 			<a href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime)]"
 				mv-multiple property="recentDay" mv-attribute="none"
-				mv-value="0 .. recentDays"
+				mv-value="range(+recentDays, 0)"
 				class="[if(hasMigraine, 'migraine')] [if(duration > 0, 'has-duration')]"
-				style="--intensity:[if(hasMigraine, hasMigraine.intensity, 'initial')]; --duration: [duration]; --start: [hour(startTime)]"
+				style="
+				--intensity:[if(hasMigraine, hasMigraine.intensity) or 'initial'];
+				--spillover-intensity:[if($previous.hasMigraine, $previous.hasMigraine.intensity) or 'initial'];
+				--duration:[duration];
+				--start:[hour(startTime)];
+				--spillover:[spillover];
+				grid-column: [weekday(date)];
+				"
 				title="[if(hasMigraine, startTime & if(duration, ' ' & endTime & ' (' & duration & ' hours)'))]"
 				>
 				<meta property="date" content="[if(recentDay > 0, startDate + 0 - recentDay * days(), startDate)]">
 				<meta property="hasMigraine" content="[first(filter(migraine, migraine.date = date(date)))]">
+				<meta property="spillover" content="[max(0, ($previous.startTime + $previous.duration * hours() - '24:00') / hours())]">
 				<meta property="startTime" content="[if(hasMigraine, hasMigraine.startTime, 0)]">
 				<meta property="duration" content="[if(hasMigraine, hasMigraine.duration, 0)]">
 				<meta property="endTime" content="[if(hasMigraine, hasMigraine.endTime, 0)]">

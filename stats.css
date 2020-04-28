@@ -24,10 +24,14 @@ main {
 
 	.recent-migraines > a {
 		border-radius: .2em;
-		--hue: calc(30 - 6 * var(--intensity));
-		--lightness: calc(70% - var(--intensity) * 10%);
+		--hue: calc(30 - 6 * var(--intensity, 2.5));
+		--lightness: calc(70% - var(--intensity, 2.5) * 10%);
 		--color: hsl(var(--hue), 100%, var(--lightness));
-		--no-intensity: linear-gradient(to right, hsl(12, 100%, 40%), hsl(30, 100%, 70%));
+
+		--spillover-hue: calc(30 - 6 * var(--spillover-intensity, 2.5));
+		--spillover-lightness: calc(70% - var(--spillover-intensity, 2.5) * 10%);
+		--spillover-color: hsl(var(--hue), 100%, var(--spillover-lightness));
+		/* --no-intensity: linear-gradient(to right, hsl(12, 100%, 40%), hsl(30, 100%, 70%)); */
 		background: var(--color, var(--no-intensity));
 		color: white;
 		font-weight: bold;
@@ -40,16 +44,24 @@ main {
 		cursor: not-allowed;
 	}
 
+	.recent-migraines.by-duration > a {
+		background:
+			linear-gradient(to right, var(--spillover-color) calc(100% * var(--spillover, 0) / 24), transparent 0),
+			var(--migraine-gradient, ) hsl(var(--gray), 70%);
+	}
+
 	.recent-migraines.by-duration > a.has-duration {
-		--gradient: linear-gradient(to right, var(--color) calc(100% * var(--duration) / 24), hsl(var(--gray), 70%) 0);
-		background: var(--gradient);
+		--migraine-gradient: linear-gradient(to right,
+			transparent 0 calc(100% * var(--start, 0) / 24),
+			var(--color) 0 calc(100% * (var(--start, 0) + var(--duration)) / 24),
+			transparent 0
+		);
 	}
 
 	.recent-migraines.by-duration > a.migraine:not(.has-duration) {
 		--stripe: .5em;
 		--percent: calc(var(--average-duration) / 24);
-		--gradient: repeating-linear-gradient(-45deg, var(--color, hsl(21, 100%, 55%)) 0 calc(var(--stripe) * var(--percent)), hsl(var(--gray), 70%) 0 var(--stripe));
-		background: var(--gradient);
+		--migraine-gradient: repeating-linear-gradient(-45deg, var(--color, hsl(21, 100%, 55%)) 0 calc(var(--stripe) * var(--percent)), hsl(var(--gray), 70%) 0 var(--stripe));
 	}
 
 dl.stats {
