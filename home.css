@@ -72,3 +72,8 @@
 	[property="duration"]:not(:empty)::after {
 		content: " hours)";
 	}
+
+.migraine-free {
+	text-align: center;
+	font-size: larger;
+}
