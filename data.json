@@ -1,7 +1,19 @@
 {
 	"migraine": [
 		{
-			"date": "2019-08-26",
+			"date": "2020-11-22",
+			"startTime": "16:00",
+			"duration": 5,
+			"intensity": 4
+		},
+		{
+			"date": "2020-11-20",
+			"startTime": "10:00",
+			"duration": 5,
+			"intensity": 3
+		},
+		{
+			"date": "2020-08-26",
 			"intensity": 1,
 			"startTime": "06:30",
 			"duration": 4,
