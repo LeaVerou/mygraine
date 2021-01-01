@@ -103,3 +103,38 @@ meter {
 		background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">\
 			<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
 	}
+
+	[property="side"] {
+		display: flex;
+		gap: .1em;
+		margin-left: .5em;
+		color: white;
+		font-weight: bold;
+		font-size: 70%;
+	}
+
+	[property="side"]::before,
+	[property="side"]::after {
+		width: 1em;
+		height: 1em;
+		padding: .3em .4em .5em;
+		--color: var(--hue), 70%;
+		background: hsl(var(--color, var(--gray)), var(--lightness, 80%));
+		border-radius: .2em;
+		text-align: center;
+	}
+
+	[property="side"]::before {
+		content: "L";
+		border-top-left-radius: 1em;
+	}
+
+	[property="side"]::after {
+		content: "R";
+		border-top-right-radius: 1em;
+	}
+
+	[property="side"][content="left"]::before,
+	[property="side"][content="right"]::after {
+		--lightness: 50%;
+	}
