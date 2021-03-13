@@ -83,11 +83,12 @@ style="--average-duration: [averageDuration]">
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span mv-if="startTime and duration" class="end-time" property="endTime">to [time(startTime + duration * hours(), 'minutes')]</span>
 
-				<span property="duration" mv-edit-type="number" mv-edit-min="1"></span>
+				<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
 
-				<meta property="timeElapsed" content="[date - $next.date]">
+				<meta property="timeElapsed" content="[if($next, startNumeric - $next.startNumeric, 0)]">
 				<meta property="startNumeric" content="[date + (hour(startTime) * 3600 + minute(startTime) * 60) * 1000]">
+				<meta property="endNumeric" content="[startNumeric + duration * hours()]">
 
 			</header>
 		</article>
@@ -99,7 +100,7 @@ style="--average-duration: [averageDuration]">
 			<dd property="totalMigraines">[count(migraine)]</dd>
 
 			<dt>Average interval:</dt>
-			<dd>[duration(average(timeElapsed))]</dd>
+			<dd>[duration(average(timeElapsed), 2)]</dd>
 
 			<dt>Max time between migraines:</dt>
 			<dd>[days(max(timeElapsed))] days</dd>
