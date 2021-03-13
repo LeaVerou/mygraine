@@ -31,9 +31,19 @@
 				<time property="date" mv-default="[$today]"></time>
 				<time property="startTime" mv-edit-type="time" mv-edit-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
-				<span mv-if="startTime and duration" class="end-time">to [time(startTime + duration * hours(), 'minutes')]</span>
+				<span class="end-time" data-hide="[!endTime]">
+					to
+					<span data-hide="[endDate = date]">
+						<time property="endDate" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
+						<span data-hide="[!endDate]">at</span>
+					</span>
+					<time property="endTime" mv-edit-type="time" mv-edit-value="[startTime]">[time(endTime, 'minutes')]</time>
+				</span>
+				<span mv-if="startTime and endTime" class="duration">
+					([duration(duration * hours(), 2)])
+				</span>
+				<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
 
-				<span property="duration" mv-edit-type="number" mv-edit-min="1"></span>
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
 				<div property="side" mv-attribute="content" mv-edit="#sideSelect"></div>
 

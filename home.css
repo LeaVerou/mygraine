@@ -57,21 +57,10 @@
 		content: "at ";
 	}
 
-	.end-time {
-		margin-left: .4em;
-	}
-
-[property="duration"] {
+.end-time,
+.duration {
 	margin-left: .4em;
 }
-
-	[property="duration"]:not(:empty)::before {
-		content: "(";
-	}
-
-	[property="duration"]:not(:empty)::after {
-		content: " hours)";
-	}
 
 .migraine-free {
 	text-align: center;

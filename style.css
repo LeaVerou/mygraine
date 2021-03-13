@@ -138,3 +138,7 @@ meter {
 	[property="side"][content="right"]::after {
 		--lightness: 50%;
 	}
+
+[data-hide="true"]:not([mv-mode="edit"] *) {
+	display: none;
+}
