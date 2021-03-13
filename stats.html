@@ -108,6 +108,9 @@ style="--average-duration: [averageDuration]">
 			<dt>Average duration</dt>
 			<dd><span property="averageDuration">[average(duration)]</span> hours</dd>
 
+			<dt>Migraines in the last 30 days:</dt>
+			<dd>[count(migraine.date > $today - 30 * days())]</dd>
+
 			<dt>Predicted migraines this month</dt>
 			<dd>[round(first(monthlyCount) / (day($today)/30))]</dd>
 
