@@ -111,7 +111,7 @@ style="--average-duration: [averageDuration]">
 			<dd>[round(first(monthlyCount) / (day($today)/30))]</dd>
 
 			<dt class="large">Migraines by month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
-			<dd>
+			<dd class="bar-chart">
 				<div mv-multiple="migraineByMonth" mv-group mv-value="migraine by year(date) & '-' & month(date, '00')">
 					[month($value, "name")] [year($value)]
 					<strong property="monthlyCount" style="--width: [monthlyCount / max(monthlyCount.$all)]">[count($items)]</strong>
@@ -134,6 +134,14 @@ style="--average-duration: [averageDuration]">
 
 					<strong property="todCount">[count(migraine.timeOfDay = migraineByTimeofday)]</strong> ([100 * todCount / totalMigraines]%)
 					were in the [get(list("Early morning", "Morning", "Afternoon", "Evening"), migraineByTimeofday - 1)]
+				</div>
+			</dd>
+
+			<dt class="large">Migraines by side</dt>
+			<dd class="bar-chart">
+				<div mv-multiple="migraineBySide" mv-group mv-value="migraine by side">
+					[$value or "No side"]
+					<strong property="sideCount" style="--width: [sideCount / totalMigraines]">[count($items)]</strong>
 				</div>
 			</dd>
 		</dl>

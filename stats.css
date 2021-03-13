@@ -106,14 +106,14 @@ dl.stats {
 		font-weight: bold;
 	}
 
-[property="migraineByMonth"],
+.bar-chart > *,
 .migraines-by-intensity > div {
 	display: grid;
 	grid-gap: .3em;
 	margin: .3em 0;
 }
 
-[property="migraineByMonth"] {
+.bar-chart > * {
 	text-align: right;
 	grid-template-columns: 8em 1fr 10em;
 }
@@ -122,9 +122,10 @@ dl.stats {
 	grid-template-columns: auto auto 1fr auto;
 }
 
-	[property="monthlyCount"] {
+	.bar-chart > * > * {
 		grid-column: 3;
 		width: calc(100% * var(--width));
+		min-width: min-content;
 		padding: .1em .3em;
 		box-sizing: border-box;
 		background: var(--gradient);
