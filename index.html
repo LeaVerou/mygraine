@@ -28,16 +28,16 @@
 		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
 			<header>
 				<span property="weekday">[weekday(date, "shortname")]</span>
-				<time property="date" mv-default="[$today]"></time>
-				<time property="startTime" mv-edit-type="time" mv-edit-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
+				<time property="date" mv-edit-type="inline" mv-default="[$today]"></time>
+				<time property="startTime" mv-edit-type="inline" mv-editor-type="time" mv-editor-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span class="end-time" data-hide="[!endTime]">
 					to
 					<span data-hide="[endDate = date]">
-						<time property="endDate" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
+						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
 						<span data-hide="[!endDate]">at</span>
 					</span>
-					<time property="endTime" mv-edit-type="time" mv-edit-value="[startTime]">[time(endTime, 'minutes')]</time>
+					<time property="endTime" mv-edit-type="inline" mv-editor-type="time" mv-editor-value="[startTime]">[time(endTime, 'minutes')]</time>
 				</span>
 				<span mv-if="startTime and endTime" class="duration">
 					([duration(duration * hours(), 2)])
@@ -45,7 +45,7 @@
 				<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
 
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
-				<div property="side" mv-attribute="content" mv-edit="#sideSelect"></div>
+				<div property="side" mv-attribute="content" mv-editor="#sideSelect"></div>
 
 				<meta property="timeElapsed" content="[startNumeric - $next.endNumeric]">
 				<meta property="startNumeric" content="[date + hour(startTime) * hours() + minute(startTime) * minutes()]">

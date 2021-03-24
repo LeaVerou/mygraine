@@ -79,7 +79,7 @@ style="--average-duration: [averageDuration]">
 			<header>
 				<span property="weekday">[weekday(date, "shortname")]</span>
 				<time property="date" mv-default="[$today]"></time>
-				<time property="startTime" mv-edit-type="time" mv-edit-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
+				<time property="startTime" mv-editor-type="time" mv-editor-value="[time($startup, 'hour')]">[time(startTime, 'minutes')]</time>
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span mv-if="startTime and duration" class="end-time" property="endTime">to [time(startTime + duration * hours(), 'minutes')]</span>
 
