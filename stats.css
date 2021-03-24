@@ -80,7 +80,7 @@ dl.stats {
 
 	dl.stats dt {
 		grid-column: 1;
-		background: hsl(var(--color, var(--gray)), 95%);
+		background: hsl(var(--color, var(--gray)), var(--l-95));
 	}
 
 	dl.stats dd {

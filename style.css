@@ -1,11 +1,34 @@
 :root {
 	--gray: 220, 10%;
+
+	--l-0: 0%;
+	--l-40: 40%;
+	--l-80: 80%;
+	--l-90: 90%;
+	--l-95: 95%;
+	--l-100: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--l-0: 100%;
+		--l-40: 60%;
+		--l-80: 20%;
+		--l-90: 10%;
+		--l-95: 5%;
+		--l-100: 0%;
+	}
+}
+
+html {
+	background: hsl(220 10% var(--l-100));
+	color: hsl(0 0% var(--l-0));
 }
 
 body {
 	margin: 0;
 	font-family: Helvetica Neue, Segoe UI, sans-serif;
-	--gradient: linear-gradient(to bottom right, hsl(20, 100%, 40%), hsl(0, 100%, 40%))
+	--gradient: linear-gradient(to bottom right, hsl(20 100% 40%), hsl(0 100% 40%))
 }
 
 main,
@@ -21,7 +44,7 @@ body > header {
 	grid-column-end: span 2;
 	padding: .5em 1em;
 	margin-bottom: 1em;
-	background: var(--gradient) #c00;
+	background: var(--gradient) hsl(0 100% var(--l-40));
 	color: white;
 	text-align: center;
 }
@@ -119,7 +142,7 @@ meter {
 		height: 1em;
 		padding: .3em .4em .5em;
 		--color: var(--hue), 70%;
-		background: hsl(var(--color, var(--gray)), var(--lightness, 80%));
+		background: hsl(var(--color, var(--gray)), var(--lightness, var(--l-80)));
 		border-radius: .2em;
 		text-align: center;
 	}

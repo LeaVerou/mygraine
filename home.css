@@ -12,7 +12,7 @@
 	margin: .5em;
 	--hue: calc(30 * (1 - var(--intensity) * .25));
 	--color: var(--hue), 100%;
-	background: hsl(var(--color, var(--gray)), 90%);
+	background: hsl(var(--color, var(--gray)), var(--l-90));
 	border-radius: 4px;
 }
 
@@ -21,7 +21,7 @@
 }
 
 [property="migraine"].intensity-0 {
-	background: hsl(20, 100%, 90%);
+	background: hsl(20 100% var(--l-90));
 }
 
 	[property="migraine"] header {
@@ -42,7 +42,7 @@
 
 	[property="notes"] {
 		padding: .5em;
-		background: hsla(0,0%,100%,.4);
+		background: hsla(0, 0%, var(--l-100), .4);
 	}
 
 [property="intensity"] {
