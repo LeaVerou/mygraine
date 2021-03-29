@@ -7,6 +7,12 @@
 		vertical-align: 0;
 	}
 
+.migraines > button.mv-add-migraine {
+	font-size: 200%;
+	display: block;
+	margin: 1rem auto;
+	padding: .3em 1em;
+}
 
 [property="migraine"] {
 	margin: .5em;
@@ -14,6 +20,12 @@
 	--color: var(--hue), 100%;
 	background: hsl(var(--color, var(--gray)), var(--l-90));
 	border-radius: 4px;
+}
+
+@media (max-width: 500px) {
+	[property="migraine"] {
+		font-size: 130%;
+	}
 }
 
 [property="migraine"]:target {
@@ -28,6 +40,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		padding: .5em;
+	}
+
+	@media (max-width: 500px) {
+		[property="migraine"] header {
+
+		}
 	}
 
 	[property="date"] {

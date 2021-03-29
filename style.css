@@ -89,6 +89,12 @@ body > header {
 		line-height: .9;
 	}
 
+	@media (max-width: 450px) {
+		body > header h2 {
+			display: none;
+		}
+	}
+
 	body > header .mv-bar.mv-bar.mv-ui {
 		grid-area: mv-bar;
 		margin: 0;
@@ -136,8 +142,7 @@ meter {
 		font-size: 70%;
 	}
 
-	[property="side"]::before,
-	[property="side"]::after {
+	[property="side"] > div {
 		width: 1em;
 		height: 1em;
 		padding: .3em .4em .5em;
@@ -147,18 +152,17 @@ meter {
 		text-align: center;
 	}
 
-	[property="side"]::before {
-		content: "L";
+	[property="side"] .left {
 		border-top-left-radius: 1em;
 	}
 
-	[property="side"]::after {
-		content: "R";
+	[property="side"] .right {
 		border-top-right-radius: 1em;
 	}
 
-	[property="side"][content="left"]::before,
-	[property="side"][content="right"]::after {
+	[property="side"][content="left"] .left,
+	[property="side"][content="right"] .right,
+	[property="side"][content="both"] > div {
 		--lightness: 50%;
 	}
 

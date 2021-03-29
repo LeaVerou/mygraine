@@ -33,7 +33,7 @@
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span class="end-time" data-hide="[!endTime]">
 					to
-					<span data-hide="[endDate = date]">
+					<span data-hide="[endDate = date]" hidden=[!endTime]>
 						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
 						<span data-hide="[!endDate]">at</span>
 					</span>
@@ -45,7 +45,10 @@
 				<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
 
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
-				<div property="side" mv-attribute="content" mv-editor="#sideSelect"></div>
+				<div property="side" mv-attribute="content" mv-edit-type="self">
+					<div class="left" mv-action="set(side, if (side = 'left', '', if(side = 'right', 'both', 'left')))">L</div>
+					<div class="right" mv-action="set(side, if (side = 'right', '', if(side = 'left', 'both', 'right')))">R</div>
+				</div>
 
 				<meta property="timeElapsed" content="[startNumeric - $next.endNumeric]">
 				<meta property="startNumeric" content="[date + hour(startTime) * hours() + minute(startTime) * minutes()]">
