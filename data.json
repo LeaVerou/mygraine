@@ -19,8 +19,9 @@
 			"intensity": 1,
 			"startTime": "06:30",
 			"notes": "Sample migraine",
-			"endDate": "2020-08-27",
-			"side": "right"
+			"endDate": "2020-08-26",
+			"side": "right",
+			"endTime": "12:30"
 		}
 	]
 }
