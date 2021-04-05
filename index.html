@@ -33,11 +33,11 @@
 				<meta property="timeOfDay" content="[if(startTime, floor(hour(startTime) / 6) + 1)]">
 				<span class="end-time" data-hide="[!endTime]">
 					to
-					<span data-hide="[endDate = date]" hidden=[!endTime]>
-						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
-						<span data-hide="[!endDate]">at</span>
-					</span>
 					<time property="endTime" mv-edit-type="inline" mv-editor-type="time" mv-editor-value="[startTime]">[time(endTime, 'minutes')]</time>
+					<span data-hide="[endDate <= date]" hidden=[!endTime]>
+						<span data-hide="[!endDate]">on</span>
+						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
+					</span>
 				</span>
 				<span mv-if="startTime and endTime" class="duration">
 					([duration(duration * hours(), 2)])
@@ -53,7 +53,7 @@
 				<meta property="timeElapsed" content="[startNumeric - $next.endNumeric]">
 				<meta property="startNumeric" content="[date + hour(startTime) * hours() + minute(startTime) * minutes()]">
 				<meta property="endNumeric" content="[startNumeric + duration * hours()]">
-				<span class="days-since" mv-if="timeElapsed">
+				<span class="days-since" mv-if="$next and timeElapsed">
 					<strong>[duration(timeElapsed, 2)]</strong>
 					migraine-free
 				</span>
