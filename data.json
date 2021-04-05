@@ -5,14 +5,16 @@
 			"startTime": "22:00",
 			"intensity": 4,
 			"endDate": "2020-11-23",
-			"side": "both"
+			"side": "both",
+			"endTime": "01:10"
 		},
 		{
 			"date": "2020-11-20",
 			"startTime": "10:00",
 			"intensity": 3,
-			"endDate": "2020-11-21",
-			"side": "left"
+			"endDate": "2020-11-20",
+			"side": "left",
+			"endTime": "13:30"
 		},
 		{
 			"date": "2020-08-26",
