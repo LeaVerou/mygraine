@@ -80,7 +80,11 @@
 	margin-left: .4em;
 }
 
-.migraine-free {
+.migraine-status {
 	text-align: center;
 	font-size: larger;
+}
+
+.migraine-status small {
+	display: block;
 }

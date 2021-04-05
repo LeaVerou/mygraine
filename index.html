@@ -22,7 +22,23 @@
 	<meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" /> -->
 	<meta property="lastMigraine" content="[first(migraine)]" />
 
-	<div class="migraine-free" mv-if="lastMigraine.duration">migraine-free for <strong>[duration($now - lastMigraine.endNumeric, 2)]</strong></div>
+	<meta property="timeElapsed" content="[$now - if (lastMigraine.endTime, lastMigraine.endNumeric, lastMigraine.startNumeric)]" />
+	<div class="migraine-status" mv-if="lastMigraine.duration > 0">
+		migraine-free for <strong>[duration(timeElapsed, 2)]</strong>
+	</div>
+	<div class="migraine-status" mv-if="!lastMigraine.duration and !lastMigraine.endTime">
+		In a migraine for <strong>[duration(timeElapsed, 2)]</strong>.
+		<meta property="timeRemaining" content="[average(first(recentCount, duration)) - timeElapsed]">
+		<small>
+			If this [if(timeRemaining > 0, 'is', 'were')] like your
+			<span property="recentCount" mv-mode="edit" mv-edit-type="popup"
+			      mv-editor-type="range" mv-edit-min="2" mv-edit-max="[count(migraine)]">30</span>
+			most recent migraines, it
+			[if(timeRemaining > 0, 'will finish in about', 'would have finished')]
+			[duration(abs(timeRemaining), 2)]
+			[if(timeRemaining < 0, 'ago')]
+		</small>
+	</div>
 	<div class="migraines">
 		<!-- <div class="since">[duration(first(date) - $today)] since last migraine!</div> -->
 		<article property="migraine" id="migraine-[date]-[startTime]" mv-multiple mv-order="desc" style="--intensity:[intensity];">
@@ -40,9 +56,14 @@
 					</span>
 				</span>
 				<span mv-if="startTime and endTime" class="duration">
-					([duration(duration * hours(), 2)])
+					([duration(duration, 2)])
 				</span>
-				<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
+				<meta property="duration" mv-if="date and startTime and endTime and endDate"
+				      content='[
+					  if (date and startTime and endTime and endDate,
+					  	endDate & "T" & endTime - date & "T" & startTime,
+						null
+					  ) ]'>
 
 				<meter property="intensity" min="0" max="5" title='[intensityName(intensity)]' mv-default="[null]"></meter>
 				<div property="side" mv-attribute="content" mv-edit-type="self">
@@ -52,7 +73,7 @@
 
 				<meta property="timeElapsed" content="[startNumeric - $next.endNumeric]">
 				<meta property="startNumeric" content="[date + hour(startTime) * hours() + minute(startTime) * minutes()]">
-				<meta property="endNumeric" content="[startNumeric + duration * hours()]">
+				<meta property="endNumeric" content="[startNumeric + duration]">
 				<span class="days-since" mv-if="$next and timeElapsed">
 					<strong>[duration(timeElapsed, 2)]</strong>
 					migraine-free
