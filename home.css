@@ -14,7 +14,7 @@
 	padding: .3em 1em;
 }
 
-[property="migraine"] {
+article[property="migraine"] {
 	margin: .5em;
 	--hue: calc(30 * (1 - var(--intensity) * .25));
 	--color: var(--hue), 100%;
@@ -23,27 +23,27 @@
 }
 
 @media (max-width: 500px) {
-	[property="migraine"] {
+	article[property="migraine"] {
 		font-size: 130%;
 	}
 }
 
-[property="migraine"]:target {
+article[property="migraine"]:target {
 	box-shadow: 0 0 .5em skyblue;
 }
 
-[property="migraine"].intensity-0 {
+article[property="migraine"].intensity-0 {
 	background: hsl(20 100% var(--l-90));
 }
 
-	[property="migraine"] header {
+	article[property="migraine"] header {
 		display: flex;
 		flex-wrap: wrap;
 		padding: .5em;
 	}
 
 	@media (max-width: 500px) {
-		[property="migraine"] header {
+		article[property="migraine"] header {
 
 		}
 	}

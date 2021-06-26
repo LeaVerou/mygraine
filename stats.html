@@ -116,7 +116,7 @@ style="--average-duration: [averageDuration]">
 
 			<dt class="large">Migraines by month (avg: [average(monthlyCount)], med: [median(monthlyCount)]):</dt>
 			<dd class="bar-chart">
-				<div mv-multiple="migraineByMonth" mv-group mv-value="migraine by year(date) & '-' & month(date, '00')">
+				<div mv-multiple="migraineByMonth" mv-group mv-value="groupBy(migraine, year(migraine.date) & '-' & month(migraine.date, '00'))">
 					[month($value, "name")] [year($value)]
 					<strong property="monthlyCount" style="--width: [monthlyCount / max(monthlyCount.$all)]">[count($items)]</strong>
 				</div>
@@ -143,7 +143,7 @@ style="--average-duration: [averageDuration]">
 
 			<dt class="large">Migraines by side</dt>
 			<dd class="bar-chart">
-				<div mv-multiple="migraineBySide" mv-group mv-value="migraine by side">
+				<div mv-multiple="migraineBySide" mv-group mv-value="migraine by migraine.side">
 					[$value or "No side"]
 					<strong property="sideCount" style="--width: [sideCount / totalMigraines]">[count($items)]</strong>
 				</div>
