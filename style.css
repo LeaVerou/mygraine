@@ -124,7 +124,12 @@ meter {
 		<text style="font-size:90px" y="1em">🤕</text></svg>') 0 / auto 100%;
 }
 
+	meter::-webkit-meter-inner-element {
+		display: block; /* Override Chrome's display: grid */
+	}
+
 	meter::-webkit-meter-bar {
+		border: none;
 		background: transparent;
 	}
 
