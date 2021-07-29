@@ -50,29 +50,30 @@ style="--average-duration: [averageDuration]">
 			<div class="header">Fri</div>
 			<div class="header">Sat</div>
 			<div class="header">Sun</div>
-			<a href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime)]"
-				mv-multiple property="recentDay" mv-attribute="none"
-				mv-value="range(+recentDays, 0)"
-				class="[if(hasMigraine, 'migraine')] [if(duration > 0, 'has-duration')]"
-				style="
-				--intensity:[if(hasMigraine, hasMigraine.intensity) or 'initial'];
-				--spillover-intensity:[if($previous.hasMigraine, $previous.hasMigraine.intensity) or 'initial'];
-				--duration:[duration];
-				--start:[hour(startTime)];
-				--spillover:[spillover];
-				grid-column: [weekday(date)];
-				"
-				title="[if(hasMigraine, startTime & if(duration, ' ' & endTime & ' (' & duration & ' hours)'))]"
-				>
-				<meta property="date" content="[if(recentDay > 0, startDate + 0 - recentDay * days(), startDate)]">
-				<meta property="hasMigraine" content="[first(filter(migraine, migraine.date = date(date)))]">
-				<meta property="spillover" content="[max(0, ($previous.startTime + $previous.duration * hours() - '24:00') / hours())]">
-				<meta property="startTime" content="[if(hasMigraine, hasMigraine.startTime, 0)]">
-				<meta property="duration" content="[if(hasMigraine, hasMigraine.duration, 0)]">
-				<meta property="endTime" content="[if(hasMigraine, hasMigraine.endTime, 0)]">
-				[month(date, "shortname")]
-				[day(date)]
-			</a>
+			<div mv-list property="recentDay" mv-value="range(+recentDays, 0)" class="mv-container">
+				<a mv-list-item href="[if(hasMigraine, 'index.html'  & location.search & '#migraine-' & date & '-' & startTime)]"
+					mv-attribute="none"
+					class="[if(hasMigraine, 'migraine')] [if(duration > 0, 'has-duration')]"
+					style="
+					--intensity:[if(hasMigraine, hasMigraine.intensity) or 'initial'];
+					--spillover-intensity:[if($previous.hasMigraine, $previous.hasMigraine.intensity) or 'initial'];
+					--duration:[duration];
+					--start:[hour(startTime)];
+					--spillover:[spillover];
+					grid-column: [weekday(date)];
+					"
+					title="[if(hasMigraine, startTime & if(duration, ' ' & endTime & ' (' & duration & ' hours)'))]"
+					>
+					<meta property="date" content="[if(recentDay > 0, startDate + 0 - recentDay * days(), startDate)]">
+					<meta property="hasMigraine" content="[first(filter(migraine, migraine.date = date(date)))]">
+					<meta property="spillover" content="[max(0, ($previous.startTime + $previous.duration * hours() - '24:00') / hours())]">
+					<meta property="startTime" content="[if(hasMigraine, hasMigraine.startTime, 0)]">
+					<meta property="duration" content="[if(hasMigraine, hasMigraine.duration, 0)]">
+					<meta property="endTime" content="[if(hasMigraine, hasMigraine.endTime, 0)]">
+					[month(date, "shortname")]
+					[day(date)]
+				</a>
+			</div>
 		</div>
 
 		<article property="migraine" mv-multiple mv-order="desc" hidden>
@@ -157,22 +158,9 @@ style="--average-duration: [averageDuration]">
 		[weekday(date)] [day(date)]
 	</div>
 </aside> -->
-<script>
-	function intensityName(intensity) {
-		return ["Very mild", "Mild", "Medium", "Strong", "Very strong"][intensity - 1];
-	}
 
-	function timeOfDay2(hour) {
-		hour = Mavo.value(hour);
-
-		if (hour === "" || hour === null) {
-			return null;
-		}
-debugger;
-		return ["Early morning", "Morning", "Afternoon", "Evening"][Math.floor(hour / 6)]
-	}
-</script>
 <script src="https://dev.mavo.io/dist/mavo.js"></script>
+<script src="mygraine.js"></script>
 
 </body>
 </html>

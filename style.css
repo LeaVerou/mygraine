@@ -115,6 +115,12 @@ aside {
 		margin: 0;
 	}
 
+fieldset {
+	border: 1px solid hsl(var(--gray), 80%);
+	border-radius: .3em;
+	margin-bottom: 1em;
+}
+
 meter {
 	display: inline-block;
 	vertical-align: baseline;

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" class="stats">
+<head>
+	<meta charset="UTF-8">
+	<title>mygraine - Calendar</title>
+	<link rel="shortcut icon" href="favicon.svg">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="https://get.mavo.io/mavo.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="calendar.css">
+</head>
+<body mv-app="migraines" mv-storage="https://github.com/leaverou/mygraine/data.json" mv-bar="with export"
+style="--average-duration: [averageDuration]">
+<header>
+	<a href="index.html[location.search]">
+		<h1>mygraine</h1>
+		<h2>migraine tracker</h2>
+	</a>
+	<div class="mv-bar mv-ui"></div>
+</header>
+<main>
+	<!-- <meta property="minNumeric" mv-value="min(startNumeric)" /> -->
+	<!-- <meta property="spanNumeric" mv-value="max(startNumeric) - minNumeric" /> -->
+	<div class="migraines">
+		<h2>
+			Showing
+			[count($items where overlap = 'start' or overlap = 'contain')]
+			migraines
+			([count($items)] migraine days)
+			from [date(computedFromDate)] to [date(computedToDate)]
+		</h2>
+		<fieldset property="options">
+			<legend>Options</legend>
+
+			<ul>
+				<li>
+					<input type="radio" property name="dateRangeType" value="recent" checked>
+					<label>
+						Show last
+						<select property="recentDays">
+							<option value="6">7 days</option>
+							<option value="29">30 days</option>
+							<option value="[day($startup) - 1]">month</option>
+							<option value="89">90 days</option>
+							<option value="364">year</option>
+						</select>
+					</label>
+				</li>
+				<li>
+					<input type="radio" name="dateRangeType" value="range">
+					<label>
+						From <input type="date" mv-default="[date(toDate - recentDays * days())]" property="fromDate">
+					</label>
+					<label>
+						To <input type="date" value="[$today]" property="toDate">
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="dateRangeType" value="all">
+						Show all
+					</label>
+				</li>
+			</ul>
+			<meta property="computedFromDate" content="[
+				if(dateRangeType = 'recent', $today - recentDays * days(),
+					if (dateRangeType = 'range', fromDate)
+				)]">
+			<meta property="computedToDate" content="[
+				if(dateRangeType = 'recent', $today,
+					if (dateRangeType = 'range', toDate)
+				)]">
+			<meta property="totalDays" content="[days(computedToDate - computedFromDate) + 1]">
+			<label>
+				<input type="checkbox" property="timeRelative" checked>
+				Time relative
+			</label>
+			<label>
+				Align
+				<select property="alignBy">
+					<option value="weeks" selected>weeks</option>
+					<option value="times">times</option>
+				</select>
+			</label>
+		</fieldset>
+
+		<div class="recent-migraines [if(timeRelative, 'time-relative')] align-by-[alignBy]"
+		     style="--total-days: [totalDays]">
+			<div class="headers headers-weekdays">
+				<div>Mon</div>
+				<div>Tue</div>
+				<div>Wed</div>
+				<div>Thu</div>
+				<div>Fri</div>
+				<div>Sat</div>
+				<div>Sun</div>
+			</div>
+
+			<div class="headers headers-times">
+				<div>00:00</div>
+				<div>01:00</div>
+				<div>02:00</div>
+				<div>03:00</div>
+				<div>04:00</div>
+				<div>05:00</div>
+				<div>06:00</div>
+				<div>07:00</div>
+				<div>08:00</div>
+				<div>09:00</div>
+				<div>10:00</div>
+				<div>11:00</div>
+				<div>12:00</div>
+				<div>13:00</div>
+				<div>14:00</div>
+				<div>15:00</div>
+				<div>16:00</div>
+				<div>17:00</div>
+				<div>18:00</div>
+				<div>19:00</div>
+				<div>20:00</div>
+				<div>21:00</div>
+				<div>22:00</div>
+				<div>23:00</div>
+			</div>
+
+			<div mv-list property="recentDay" mv-value="byDay(migraine, from: computedFromDate, to: computedToDate)" class="mv-container">
+				<div class="day" mv-list-item style="--weekday: [weekday(date)]">
+					<div mv-list property="$items" mv-value="$items" class="mv-container">
+						<a mv-list-item
+							href="['index.html'  & location.search & '#migraine-' & date & '-' & startTime]"
+							mv-attribute="none"
+							mv-group
+							class="migraine [if(!endTime, 'unknown-end-time')] overlap-[overlap] [if(isLongestSegment, 'longest-segment')]"
+							style="
+							--intensity:[intensity];
+							--start: [hour(overlapStart) + minute(overlapStart) / 60];
+							--end: [hour(overlapEnd) + minute(overlapEnd) / 60];
+							"
+							title="[startTime & if(duration, ' to ' & endTime & ' (' & duration & ' hours)')]"
+							>
+							<meta property="intensity">
+							<meta property="duration" content='[(endDate & "T" & endTime - date & "T" & startTime) / hours()]'>
+						</a>
+					</div>
+					<span>
+						[month(date, "shortname")]
+						[day(date)]
+						[if(year(date) != year($today), year(date))]
+					</span>
+					<meta property="hasMigraine" content="[count($items) > 0]">
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script src="https://dev.mavo.io/dist/mavo.js"></script>
+<script src="mygraine.js"></script>
+
+
+</body>
+</html>

@@ -50,9 +50,9 @@
 				<span class="end-time" data-hide="[!endTime]">
 					to
 					<time property="endTime" mv-edit-type="inline" mv-editor-type="time" mv-editor-value="[startTime]">[time(endTime, 'minutes')]</time>
-					<span data-hide="[endDate <= date]" hidden=[!endTime]>
+					<span data-hide="[endDate <= date]" hidden="[!endTime]">
 						<span data-hide="[!endDate]">on</span>
-						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime < startTime, date(date + 1 * days()), date)]"></time>
+						<time property="endDate" mv-edit-type="inline" mv-default="[if(endTime, if(endTime < startTime, date(date + 1 * days()), date))]"></time>
 					</span>
 				</span>
 				<span mv-if="startTime and endTime" class="duration">
@@ -92,22 +92,9 @@
 		<option>both</option>
 	</select>
 </div>
-<script>
-	function intensityName(intensity) {
-		return ["Very mild", "Mild", "Medium", "Strong", "Very strong"][intensity - 1];
-	}
 
-	function timeOfDay2(hour) {
-		hour = Mavo.value(hour);
-
-		if (hour === "" || hour === null) {
-			return null;
-		}
-debugger;
-		return ["Early morning", "Morning", "Afternoon", "Evening"][Math.floor(hour / 6)]
-	}
-</script>
 <script src="https://dev.mavo.io/dist/mavo.js"></script>
+<script src="mygraine.js"></script>
 
 </body>
 </html>
